@@ -26,19 +26,16 @@ class App extends React.Component<any, any> {
 
   componentWillMount() {
     // TODO fetch notes and push them into state.
-    axios({
-      method: 'get',
-      url: 'http://localhost:4000/notes'
-    })
+    axios.get('./db.json')
     .then((response) => {
       let unread = 0;
-      response.data.forEach((note: types["Note"]) => {
+      response.data.notes.forEach((note: types["Note"]) => {
         if (!note.read) {
           unread++;
         }
       })
       this.setState({
-        notes: response.data,
+        notes: response.data.notes,
         unread
       })
     })
